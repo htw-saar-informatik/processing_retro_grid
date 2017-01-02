@@ -1,41 +1,51 @@
-//Beispiel für eine lineare "Bewegung" anhand eines 80er Retro Grids
+// Beispiel für eine lineare "Bewegung" anhand eines 80er Retro Grids
 // Basiert zum Teil auf dem Beispiel:  https://processing.org/examples/linear.html
 
 // Globale Variable 
 // Farbe der Ingenieurwissenschaften der htw saar
 color htw_ingwi = color(75, 180, 230); 
-float a; //
-int numerOfLines = 60; // Anzahl der horizontalen Linien
+float a, b; //
+float speed;
 int xSpacer = 10; // x Abstand des Gitters
-int ySpacer = 15; // y Abstand des Gitters
 
 // Vorbereitung
 void setup() {
-  size(300, 100);
+  size(400, 200);
+  strokeWeight(2);
   stroke(htw_ingwi);
   frameRate(15);
   a = 0;
+  b = height/2;
+  speed = 2.5;
 }
 
 // Durchführung
 void draw() {
   background(0);
+ 
+  // Transparentes Rechteck in Fenstergröße
+  //fill(0, 80.0f); // Schwarz, transparent 
+  //rect(0, 0, width, height);
   
-  // Mehrere Linien, die "Bewegung" vortäuschen
-  // Achtung: Etwas unrund und Perspektive nicht berücksichtigt
-  for(int i = 0; i < numerOfLines; i++){
-    line(0, a-(i*width/ySpacer), width, a-(i*width/ySpacer));
-  }
+  // Linien
+  line(0, a, width, a);
+  line(0, b, width, b);
   
   // Geschwindigkeit der "Bewegung"
-  a = a + 1.5;
+  a += speed;
+  b += speed;
   
-  // Reset
+  // Reset a
   if (a > height) { 
     a = 0; 
   }
+  
+  // Reset b
+  if (b > height) { 
+    b = 0; 
+  }
  
- // Rest des Gitters 
+ // Rest des Gitters zeichnen
  for(int i = 0; i < width; i+=xSpacer){
     line(i, 0, (i-width/2)*xSpacer, height);
   }
